@@ -1,0 +1,88 @@
+{
+  "@@locale": "en",
+  "appTitle": "Desh Crime Alert",
+  "@appTitle": {},
+  "userName": "User Name",
+  "@userName": {},
+  "userEmail": "User Email",
+  "@userEmail": {},
+  "alertsSent": "Alerts Sent",
+  "@alertsSent": {},
+  "peopleHelped": "People Helped",
+  "@peopleHelped": {},
+  "rating": "Rating",
+  "@rating": {},
+  "notifications": "Notifications",
+  "@notifications": {},
+  "privacy": "Privacy",
+  "@privacy": {},
+  "location": "Location",
+  "@location": {},
+  "emergencyContacts": "Emergency Contacts",
+  "@emergencyContacts": {},
+  "account": "Account",
+  "@account": {},
+  "logout": "Logout",
+  "@logout": {},
+  "sosAlert": "SOS Alert",
+  "@sosAlert": {},
+  "reportIncident": "Report Incident",
+  "@reportIncident": {},
+  "shareLocation": "Share Location",
+  "@shareLocation": {},
+  "addContacts": "Add Contacts",
+  "@addContacts": {},
+  "incidentHistory": "Incident History",
+  "@incidentHistory": {},
+  "appSettings": "App Settings",
+  "@appSettings": {},
+  "features": "Features",
+  "@features": {},
+  "recentIncidents": "Recent Incidents",
+  "@recentIncidents": {},
+  "alerts": "Alerts",
+  "@alerts": {},
+  "goLive": "Go Live",
+  "@goLive": {},
+  "startLiveStream": "Start Live Stream",
+  "@startLiveStream": {},
+  "markAsRead": "Mark as read",
+  "@markAsRead": {},
+  "liveFeatureComingSoon": "Live streaming feature coming soon!",
+  "@liveFeatureComingSoon": {},
+  "emergencyServices": "Emergency Services",
+  "@emergencyServices": {},
+  "profile": "Profile",
+  "@profile": {},
+  "home": "Home",
+  "@home": {},
+  "yourSafety": "Your safety is our priority.",
+  "@yourSafety": {}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

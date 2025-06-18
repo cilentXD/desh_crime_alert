@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "497752609770",
+    "project_id": "desh-crime-alert-e1b7a",
+    "storage_bucket": "desh-crime-alert-e1b7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497752609770:android:4a01a959efb2a2a7a51893",
+        "android_client_info": {
+          "package_name": "com.example.desh_crime_alert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497752609770-sdflqscfji7tpnjf7th9dgah2292ad5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.desh_crime_alert",
+            "certificate_hash": "0477fd446164bbbe8eef5660c071a16025402b19"
+          }
+        },
+        {
+          "client_id": "497752609770-mcnv10orvu99ktrgjd566kpvsaad8k29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIFZjYi5pJggx4q9XFkYfynEEuGf1Up8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497752609770-mcnv10orvu99ktrgjd566kpvsaad8k29.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "497752609770-01l1dgpbdk4i101escs0plcv06clqfuk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.deshCrimeAlert"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
