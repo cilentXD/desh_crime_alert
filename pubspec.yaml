@@ -30,31 +30,35 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.15.5
+  geolocator: ^11.0.0
+  shared_preferences: ^2.2.0
+  intl: ^0.20.2
+  provider: ^6.0.5
+  dio: ^5.4.0
+  google_maps_flutter: ^2.7.0
+  image_picker: ^1.0.7
+  firebase_storage: ^11.6.0
+  geoflutterfire2: ^2.3.15
+  url_launcher: ^6.1.14
+  flutter_local_notifications: ^17.1.2
   flutter_localizations:
     sdk: flutter
-  intl: any
-  google_maps_flutter: ^2.12.3
-  cupertino_icons: ^1.0.8
-  url_launcher: ^6.3.0
-  firebase_core: ^3.1.1
-  firebase_auth: ^5.1.1
-  google_sign_in: ^6.2.1
-  image_picker: ^1.1.2
-  firebase_storage: ^12.4.7
-  geolocator: ^12.0.0
-  permission_handler: ^12.0.0
-  flutter_svg: ^2.0.9
-  logger: ^2.0.2
-  flutter_facebook_auth: ^7.0.0
-  cloud_firestore: ^5.0.0
+  geocoding: ^2.1.0
   font_awesome_flutter: ^10.7.0
+  google_sign_in: ^6.2.1
+  flutter_facebook_auth: ^6.2.0
+  flutter_svg: ^2.0.10+1
+  device_info_plus: ^10.1.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_gen: ^5.3.2
-  flutter_lints: ^2.0.0
+  flutter_lints: ^1.0.0
   flutter_launcher_icons: "^0.13.1"
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -77,8 +81,11 @@ flutter:
 
   assets:
     - lib/l10n/
-    - assets/images/
-    - assets/icons/
+    - assets/map_style.json
+    - assets/images/fire.png
+    - assets/images/home.png
+    - assets/images/car.png
+    - assets/images/gun.png
 
 
 

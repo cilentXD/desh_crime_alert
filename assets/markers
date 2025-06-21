@@ -1,0 +1,8 @@
+late final BitmapDescriptor _fireIcon;
+Future<void> _loadIcons() async {
+  _fireIcon = await BitmapDescriptor.fromAssetImage(
+    const ImageConfiguration(size: Size(48, 48)),
+    'assets/images/markers/fire.png',
+  );
+  setState(() {});
+}

@@ -1,94 +1,126 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
-class AlertsScreen extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../models/incident.dart';
+
+class AlertsScreen extends StatelessWidget {
   const AlertsScreen({super.key});
 
   @override
-  AlertsScreenState createState() => AlertsScreenState();
-}
-
-class AlertsScreenState extends State<AlertsScreen> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('All Alerts'),
-        backgroundColor: Colors.red[700],
+        title: const Text("Incident Feed"),
+        backgroundColor: Colors.transparent,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('reports')
+            .collection('incidents')
             .orderBy('timestamp', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong'));
+            return const Center(
+              child: Text(
+                "Error loading incidents",
+                style: TextStyle(color: Colors.red),
+              ),
+            );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No alerts found.'));
+          final docs = snapshot.data?.docs ?? [];
+          if (docs.isEmpty) {
+            return const Center(
+              child: Text(
+                "No incidents yet.",
+                style: TextStyle(color: Colors.white70),
+              ),
+            );
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(10),
-            itemCount: snapshot.data!.docs.length,
+            itemCount: docs.length,
             itemBuilder: (context, index) {
-              return _buildAlertCard(snapshot.data!.docs[index]);
+              final incident = Incident.fromMap(
+                docs[index].data() as Map<String, dynamic>,
+                docs[index].id,
+              );
+              return _IncidentCard(incident: incident);
             },
           );
         },
       ),
     );
   }
+}
 
-  Widget _buildAlertCard(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-    DateTime time = (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now();
+class _IncidentCard extends StatelessWidget {
+  final Incident incident;
+  const _IncidentCard({required this.incident});
 
+  @override
+  Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 10),
-      elevation: 3,
+      color: const Color(0xFF1F2937),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    data['crimeType'] ?? 'Unknown Type',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  _formatTime(time),
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
             Text(
-              data['location'] ?? 'Unknown Location',
-              style: TextStyle(
-                color: Colors.grey[700],
+              incident.title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              incident.type,
+              style: const TextStyle(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              data['description'] ?? 'No description provided.',
-              style: const TextStyle(fontSize: 14),
+              incident.description,
+              style: const TextStyle(color: Colors.white70),
+            ),
+            if (incident.imageUrl != null && incident.imageUrl!.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  incident.imageUrl!,
+                  height: 160,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Icon(Icons.place, color: Colors.redAccent, size: 16),
+                const SizedBox(width: 4),
+                Text(
+                  '${incident.location.latitude.toStringAsFixed(2)}, ${incident.location.longitude.toStringAsFixed(2)}',
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              _timeAgo(incident.timestamp),
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
             ),
           ],
         ),
@@ -96,16 +128,11 @@ class AlertsScreenState extends State<AlertsScreen> {
     );
   }
 
-  String _formatTime(DateTime time) {
-    final now = DateTime.now();
-    final difference = now.difference(time);
-
-    if (difference.inMinutes < 60) {
-      return '${difference.inMinutes}m ago';
-    } else if (difference.inHours < 24) {
-      return '${difference.inHours}h ago';
-    } else {
-      return '${difference.inDays}d ago';
-    }
+  String _timeAgo(DateTime date) {
+    final diff = DateTime.now().difference(date);
+    if (diff.inMinutes < 1) return 'Just now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes} min ago';
+    if (diff.inHours < 24) return '${diff.inHours} hr ago';
+    return '${diff.inDays} days ago';
   }
 }

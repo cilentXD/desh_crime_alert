@@ -39,7 +39,8 @@ class _CrimeMapScreenState extends State<CrimeMapScreen> {
   Future<void> _fetchCrimeReports() async {
     debugPrint("Fetching crime reports from Firestore...");
     try {
-      final snapshot = await FirebaseFirestore.instance.collection('reports').get();
+      final snapshot =
+          await FirebaseFirestore.instance.collection('reports').get();
       final reports = snapshot.docs;
       debugPrint("Found ${reports.length} reports.");
 
@@ -62,7 +63,8 @@ class _CrimeMapScreenState extends State<CrimeMapScreen> {
         final String reportId = report.id;
 
         if (location != null) {
-          debugPrint("Location found: Lat ${location.latitude}, Lng ${location.longitude}");
+          debugPrint(
+              "Location found: Lat ${location.latitude}, Lng ${location.longitude}");
           _markers.add(
             Marker(
               markerId: MarkerId(reportId),
@@ -77,7 +79,8 @@ class _CrimeMapScreenState extends State<CrimeMapScreen> {
             ),
           );
         } else {
-          debugPrint("Report ${report.id} does not have a valid 'location' (GeoPoint) field.");
+          debugPrint(
+              "Report ${report.id} does not have a valid 'location' (GeoPoint) field.");
         }
       }
     } catch (e, stackTrace) {
@@ -86,7 +89,8 @@ class _CrimeMapScreenState extends State<CrimeMapScreen> {
       _errorMessage = "Could not load crime data.";
     }
 
-    debugPrint("Finished fetching. Updating state with ${_markers.length} markers.");
+    debugPrint(
+        "Finished fetching. Updating state with ${_markers.length} markers.");
     if (mounted) {
       setState(() {
         _isLoading = false;

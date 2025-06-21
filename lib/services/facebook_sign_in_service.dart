@@ -13,10 +13,12 @@ class FacebookSignInService {
 
       if (loginResult.status == LoginStatus.success) {
         // Create a credential from the access token
-        final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-        
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
         // Once signed in, return the UserCredential
-        final UserCredential userCredential = await _auth.signInWithCredential(facebookAuthCredential);
+        final UserCredential userCredential =
+            await _auth.signInWithCredential(facebookAuthCredential);
         return userCredential.user;
       } else {
         throw Exception('Facebook login failed: ${loginResult.status}');

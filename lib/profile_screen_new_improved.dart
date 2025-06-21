@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'my_reports_screen.dart';
 
+import 'services/auth_service.dart';
 import 'welcome_screen.dart';
 
 class ProfileScreenNewImproved extends StatefulWidget {
@@ -47,8 +48,6 @@ class ProfileScreenNewImprovedState extends State<ProfileScreenNewImproved> {
   int _reportCount = 0;
   int _followersCount = 0;
   int _followingCount = 0;
-
-
 
   @override
   void initState() {
@@ -490,7 +489,9 @@ class ProfileScreenNewImprovedState extends State<ProfileScreenNewImproved> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const MyReportsScreen()),
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const MyReportsScreen()),
                               );
                             },
                             child: _buildStatWithIcon(
@@ -562,35 +563,28 @@ class ProfileScreenNewImprovedState extends State<ProfileScreenNewImproved> {
                       // TODO: Implement Help & Support navigation
                     }),
                     const SizedBox(height: 8),
-                    _buildMenuOption(Icons.logout, 'Log Out', () async {
-                      // Show confirmation dialog
-                      bool? shouldLogout = await showDialog<bool>(
+                    _buildMenuOption(
+                        Icons.logout,
+                        'Log Out',
+                        () async {
+                      final bool? shouldLogout = await showDialog<bool>(
                         context: context,
-                        builder: (BuildContext context) {
+                        builder: (context) {
                           return AlertDialog(
-                            backgroundColor: const Color(0xFF1F2937),
-                            title: const Text(
-                              'Log Out',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            content: const Text(
-                              'Are you sure you want to log out?',
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            actions: <Widget>[
+                            title: const Text('Confirm Log Out'),
+                            content:
+                                const Text('Are you sure you want to log out?'),
+                            actions: [
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
-                                child: const Text(
-                                  'No',
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                                child: const Text('Cancel'),
                               ),
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(true),
                                 child: const Text(
-                                  'Yes',
+                                  'Log Out',
                                   style: TextStyle(color: Colors.red),
                                 ),
                               ),
@@ -600,7 +594,7 @@ class ProfileScreenNewImprovedState extends State<ProfileScreenNewImproved> {
                       );
 
                       if (shouldLogout == true) {
-                        await FirebaseAuth.instance.signOut();
+                        await AuthService().signOut();
                         if (mounted) {
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(

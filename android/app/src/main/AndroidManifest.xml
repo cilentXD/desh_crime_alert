@@ -1,15 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Required to access the internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- Camera permission for incident photos/videos -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- SMS permission for SOS / emergency messages -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name="${applicationName}"
         android:label="Desh Alert"
         android:icon="@mipmap/launcher_icon"
-        android:enableOnBackInvokedCallback="true">
+        android:enableOnBackInvokedCallback="true"
+        android:hardwareAccelerated="true">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBCgfhCaFTqIajb5BBNFXFl2mS9CbVs06s"/>
+            android:value="${MAPS_API_KEY}"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -14,6 +14,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        // Enable desugaring for Java 8+ APIs required by some libraries (e.g. flutter_local_notifications)
+        isCoreLibraryDesugaringEnabled = true
     }
 
     kotlinOptions {
@@ -21,6 +23,8 @@ android {
     }
 
     defaultConfig {
+        // Pass MAPS_API_KEY from local.properties (or CI secrets) to the manifest
+        manifestPlaceholders += mapOf("MAPS_API_KEY" to (project.findProperty("MAPS_API_KEY") ?: ""))
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.desh_crime_alert"
         // You can update the following values to match your application needs.
@@ -42,4 +46,9 @@ android {
 
 flutter {
     source = "../.."
+}
+
+// Additional dependencies
+dependencies {
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

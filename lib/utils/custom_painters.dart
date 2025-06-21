@@ -16,7 +16,8 @@ class DiamondPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color = Colors.white.withOpacity(0.3)
+      // Replaced deprecated withOpacity by calculating alpha manually
+      ..color = Colors.white.withAlpha(77) // 0.3 * 255 ≈ 77
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
